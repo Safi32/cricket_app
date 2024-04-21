@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "939944859389",
+    "project_id": "cric-app-4cfce",
+    "storage_bucket": "cric-app-4cfce.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:939944859389:android:640f5fc93f95c7cc739094",
+        "android_client_info": {
+          "package_name": "com.example.cric_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYOyY6g1JH603LK0l64Mv2rj_iiyI1zdc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:939944859389:android:3b7bc69db03c4a9a739094",
+        "android_client_info": {
+          "package_name": "com.example.cricket_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYOyY6g1JH603LK0l64Mv2rj_iiyI1zdc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
