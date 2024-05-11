@@ -8,7 +8,7 @@ final _firebase = FirebaseAuth.instance;
 
 class LogInScreen extends StatefulWidget {
   static const routeName = "logIn";
-  const LogInScreen({Key? key}) : super(key: key);
+  const LogInScreen({super.key});
 
   @override
   State<LogInScreen> createState() => _LogInScreenState();
@@ -195,16 +195,16 @@ class _LogInScreenState extends State<LogInScreen> {
                 const SizedBox(
                   height: 20,
                 ),
-                Container(
-                  width: 360,
-                  height: 60,
-                  decoration: const BoxDecoration(
-                    color: Colors.green,
-                  ),
-                  child: Center(
-                    child: InkWell(
-                      onTap: _submit,
-                      child: const Text(
+                InkWell(
+                  onTap: _submit,
+                  child: Container(
+                    width: 360,
+                    height: 60,
+                    decoration: const BoxDecoration(
+                      color: Colors.green,
+                    ),
+                    child: const Center(
+                      child: Text(
                         "LOGIN",
                         style: TextStyle(
                           color: Colors.white,

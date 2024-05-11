@@ -10,20 +10,6 @@ class TeamsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
-        leading: const Padding(
-          padding: EdgeInsets.symmetric(
-            vertical: 10,
-          ),
-          child: SizedBox(
-            height: 10,
-            width: 10,
-            child: Image(
-              image: AssetImage(
-                "assets/shirt.png",
-              ),
-            ),
-          ),
-        ),
         actions: const [
           Padding(
             padding: EdgeInsets.symmetric(
@@ -157,7 +143,7 @@ class TeamsScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(5),
               ),
               child: const Center(
-                child:  Text(
+                child: Text(
                   "Buy Tickets",
                   style: TextStyle(
                     color: Colors.white,

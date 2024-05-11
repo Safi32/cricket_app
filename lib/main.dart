@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         HomeScreen.routeName: (context) => const HomeScreen(),
         LogInScreen.routeName: (context) => const LogInScreen(),
         SignUpScreen.routeName: (context) => const SignUpScreen(),
-        TeamsScreen.routeName : (context) => const TeamsScreen()
+        TeamsScreen.routeName: (context) => const TeamsScreen()
       },
     );
   }

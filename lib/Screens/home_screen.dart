@@ -1,12 +1,18 @@
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cricket_app/Screens/auth_screen/login.dart';
+import 'package:cricket_app/Screens/page_view/page_01.dart';
 import 'package:cricket_app/utils/colors.dart';
 import 'package:cricket_app/widgets/drawer.dart';
 import 'package:cricket_app/widgets/matches.dart';
 import 'package:cricket_app/widgets/previous_matches.dart';
+import 'package:cricket_app/widgets/slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 final _firebase = FirebaseAuth.instance;
+String _userName = "";
 
 class HomeScreen extends StatefulWidget {
   static const routeName = "homeScreen";
@@ -17,9 +23,23 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    _getUserInfo();
+  }
+
+  Future<void> _getUserInfo() async {
+    User? user = _firebase.currentUser;
+    if (user != null) {
+      setState(() {
+        _userName = user.displayName ?? '';
+      });
+    }
+  }
+
   bool toggle = false;
   bool showMatchesScreen = true;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,12 +64,37 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           actions: [
             PopupMenuButton<String>(
-              icon: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Icon(
-                  Icons.person,
-                  color: Colors.white,
-                ),
+              child: StreamBuilder(
+                stream:
+                    FirebaseFirestore.instance.collection('users').snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Center(
+                          child: Text(snapshot.error.toString()),
+                        ),
+                      ],
+                    );
+                  }
+                  if (snapshot.hasData) {
+                    final userData = snapshot.data!.docs;
+                    List<String> usernames = [];
+                    for (var userDoc in userData) {
+                      final userName = userDoc.data()['_userName'];
+                      usernames.add(userName);
+                    }
+                    return Expanded(
+                      child: ListView(
+                        children: usernames
+                            .map((userName) => Text(userName))
+                            .toList(),
+                      ),
+                    );
+                  }
+                  return const CircularProgressIndicator.adaptive();
+                },
               ),
               onSelected: (String value) async {
                 if (value == 'My Profile') {
@@ -97,94 +142,14 @@ class _HomeScreenState extends State<HomeScreen> {
       body: PageView(
         scrollDirection: Axis.vertical,
         children: [
-          Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            child: Stack(
-              children: [
-                Positioned(
-                  left: 0,
-                  top: 0,
-                  child: SizedBox(
-                    width: 400,
-                    child: Image.asset(
-                      "assets/Header-Ellipse.png",
-                    ),
-                  ),
-                ),
-                Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset("assets/shirt.png"),
-                      const SizedBox(height: 10),
-                      const Row(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 20,
-                              vertical: 20,
-                            ),
-                            child: Text(
-                              "Defender Cricket Club",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
-                        child: Text(
-                          "A sports club is an organization of people interested in a particular sport or physical activity. clubs maybe dedicated to a single sport or to several multi multi-sport clubs.",
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 30),
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 20,
-                            ),
-                            child: Container(
-                              height: 40,
-                              width: 140,
-                              decoration: BoxDecoration(
-                                color: const Color(0xFF68B787),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: const Center(
-                                child: Text(
-                                  "Buy Tickets",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                Positioned(
-                  right: 0,
-                  left: 0,
-                  top: 100,
-                  child: Image.asset(
-                    "assets/Header-Ellipse-2.png",
-                  ),
-                ),
-              ],
-            ),
+          const PageOneScreen(
+            image: "assets/Header-Ellipse.png",
+            kitImage: "assets/shirt.png",
+            clubName: "Defenders Cricket Club",
+            description:
+                "A sports club is an organization of people interested in a particular sport or physical activity. clubs maybe dedicated to a single sport or to several multi multi-sport clubs.",
+            btnContainer: "Buy Tickets",
+            image2: "assets/Header-Ellipse-2.png",
           ),
           Container(
             decoration: const BoxDecoration(
@@ -410,6 +375,69 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ],
                   ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 20,
+                    horizontal: 5,
+                  ),
+                  child: SizedBox(
+                    height: 370,
+                    width: double.infinity,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: const [
+                        SliderScreen(
+                          image: "assets/kits.png",
+                          title: "Latest about Cricclub",
+                          description:
+                              "There are many different sports \n clubs available, so it is important to \n do some research",
+                          btnText: "Read More",
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        SliderScreen(
+                          image: "assets/team2.png",
+                          title: "Latest about Cricclub",
+                          description:
+                              "There are many different sports \n clubs available, so it is important to \n do some research",
+                          btnText: "Read More",
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        SliderScreen(
+                          image: "assets/article-1.png",
+                          title: "Latest about Cricclub",
+                          description:
+                              "There are many different sports \n clubs available, so it is important to \n do some research",
+                          btnText: "Read More",
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 80,
+                ),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Rate Us",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
