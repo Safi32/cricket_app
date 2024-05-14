@@ -19,7 +19,7 @@ class MatchesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 170,
+      height: 140,
       width: 200,
       decoration: BoxDecoration(
         color: const Color(0xFF9C9C9C),
@@ -27,7 +27,7 @@ class MatchesScreen extends StatelessWidget {
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(
-          vertical: 10,
+          vertical: 5,
         ),
         child: Column(
           children: [
@@ -56,7 +56,7 @@ class MatchesScreen extends StatelessWidget {
               ],
             ),
             const SizedBox(
-              height: 20,
+              height: 5,
             ),
             Row(
               children: [
@@ -95,7 +95,7 @@ class MatchesScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: 15,
+              height: 7,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(

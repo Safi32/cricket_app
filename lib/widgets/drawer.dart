@@ -1,3 +1,5 @@
+import 'package:cricket_app/Screens/blogs_screen.dart';
+import 'package:cricket_app/Screens/events_screen.dart';
 import 'package:flutter/material.dart';
 
 class DrawerScreen extends StatelessWidget {
@@ -6,50 +8,72 @@ class DrawerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-        child: ListView(
-          children: const [
-            ListTile(
-              title: Text(
+      child: ListView(
+        children: [
+          ListTile(
+            title: InkWell(
+              child: Container(
+                child: Text(
+                  "Home",
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          ListTile(
+            title: InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, EventsScreen.routeName);
+              },
+              child: Text(
                 "Events",
                 style: TextStyle(
                   color: Colors.black,
                 ),
               ),
             ),
-            ListTile(
-              title: Text(
+          ),
+          ListTile(
+            title: InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, BlogsScreen.routeName);
+              },
+              child: Text(
                 "Blogs",
                 style: TextStyle(
                   color: Colors.black,
                 ),
               ),
             ),
-            ListTile(
-              title: Text(
-                "About us",
-                style: TextStyle(
-                  color: Colors.black,
-                ),
+          ),
+          ListTile(
+            title: Text(
+              "About us",
+              style: TextStyle(
+                color: Colors.black,
               ),
             ),
-            ListTile(
-              title: Text(
-                "Contact us",
-                style: TextStyle(
-                  color: Colors.black,
-                ),
+          ),
+          ListTile(
+            title: Text(
+              "Contact us",
+              style: TextStyle(
+                color: Colors.black,
               ),
             ),
-            ListTile(
-              title: Text(
-                "Privacy policy",
-                style: TextStyle(
-                  color: Colors.black,
-                ),
+          ),
+          ListTile(
+            title: Text(
+              "Privacy policy",
+              style: TextStyle(
+                color: Colors.black,
               ),
             ),
-          ],
-        ),
-      );
+          ),
+        ],
+      ),
+    );
   }
 }

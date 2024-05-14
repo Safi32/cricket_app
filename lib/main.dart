@@ -1,5 +1,7 @@
 import 'package:cricket_app/Screens/auth_screen/login.dart';
 import 'package:cricket_app/Screens/auth_screen/signUp.dart';
+import 'package:cricket_app/Screens/blogs_screen.dart';
+import 'package:cricket_app/Screens/events_screen.dart';
 import 'package:cricket_app/Screens/home_screen.dart';
 import 'package:cricket_app/Screens/teams_screen/teams_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -26,7 +28,9 @@ class MyApp extends StatelessWidget {
         HomeScreen.routeName: (context) => const HomeScreen(),
         LogInScreen.routeName: (context) => const LogInScreen(),
         SignUpScreen.routeName: (context) => const SignUpScreen(),
-        TeamsScreen.routeName: (context) => const TeamsScreen()
+        TeamsScreen.routeName: (context) => const TeamsScreen(),
+        EventsScreen.routeName: (context) => const EventsScreen(),
+        BlogsScreen.routeName: (context) => const BlogsScreen(),
       },
     );
   }

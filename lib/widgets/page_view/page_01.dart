@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class PageOneScreen extends StatelessWidget {
+  static const routeName = "PageOne";
   const PageOneScreen(
       {super.key,
       required this.image,

@@ -32,12 +32,12 @@ class SliderScreen extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
                 Text(
                   title,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
                   ),
@@ -46,7 +46,9 @@ class SliderScreen extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10,
+            ),
             child: Row(
               children: [
                 Text(
@@ -55,7 +57,7 @@ class SliderScreen extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(
+          SizedBox(
             height: 5,
           ),
           Container(
@@ -68,7 +70,7 @@ class SliderScreen extends StatelessWidget {
             child: Center(
               child: Text(
                 btnText,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
