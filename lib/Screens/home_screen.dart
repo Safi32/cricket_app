@@ -1,40 +1,49 @@
-import 'dart:async';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cricket_app/Screens/auth_screen/login.dart';
 import 'package:cricket_app/utils/colors.dart';
 import 'package:cricket_app/widgets/drawer.dart';
 import 'package:cricket_app/widgets/page_view/page_01.dart';
+import 'package:cricket_app/widgets/tickets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final _firebase = FirebaseAuth.instance;
-String _userName = "";
 
 class HomeScreen extends StatefulWidget {
-  static const routeName = "homeScreen";
-  const HomeScreen({Key? key}) : super(key: key);
+  static const routeName = '/home';
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  List _users = [];
+  var user = null;
   @override
   void initState() {
+    _getAllUsers();
     super.initState();
-    _getUserInfo();
   }
 
-  Future<void> _getUserInfo() async {
-    User? user = _firebase.currentUser;
-    if (user != null) {
-      setState(() {
-        _userName = user.displayName ?? '';
-      });
-    }
+  void _getAllUsers() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final id = await prefs.getString('id');
+    QuerySnapshot querySnapshot =
+        await FirebaseFirestore.instance.collection('acoounts').get();
+
+    _users = querySnapshot.docs.map((doc) {
+      return doc.data() as Map<String, dynamic>;
+    }).toList();
+
+    user = _users.firstWhere((element) {
+      return element["UserId"] == id;
+    });
+    print(user);
+
+    setState(() {});
   }
 
-  bool toggle = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,11 +68,19 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           actions: [
             PopupMenuButton<String>(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                ),
+                child: Text(
+                  user != null ? user!["username"] : "",
+                ),
+              ),
               onSelected: (String value) async {
                 if (value == 'My Profile') {
                   // Handle My Profile action
                 } else if (value == 'Tickets') {
-                  // Handle Tickets action
+                  Navigator.pushNamed(context, TicketsScreen.routeName);
                 } else if (value == 'Logout') {
                   try {
                     await _firebase.signOut();
@@ -104,8 +121,8 @@ class _HomeScreenState extends State<HomeScreen> {
       drawer: const DrawerScreen(),
       body: PageView(
         scrollDirection: Axis.vertical,
-        children: [
-          const PageOneScreen(
+        children: const [
+          PageOneScreen(
             image: "assets/Header-Ellipse.png",
             kitImage: "assets/shirt.png",
             clubName: "Defenders Cricket Club",

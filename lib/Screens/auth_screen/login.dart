@@ -3,6 +3,7 @@ import 'package:cricket_app/Screens/home_screen.dart';
 import 'package:cricket_app/utils/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final _firebase = FirebaseAuth.instance;
 
@@ -21,6 +22,7 @@ class _LogInScreenState extends State<LogInScreen> {
   late bool _passwordVisible;
 
   void _submit() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     final isValid = _formKey.currentState!.validate();
 
     if (isValid) {
@@ -29,14 +31,17 @@ class _LogInScreenState extends State<LogInScreen> {
         final UserCredential userCredential =
             await _firebase.signInWithEmailAndPassword(
                 email: _enteredEmail, password: _enteredPassword);
-        print(userCredential);
+        prefs.setString('id', userCredential.user!.uid);
+
         Navigator.pushNamed(context, HomeScreen.routeName);
       } on FirebaseAuthException catch (e) {
-        if (e.code == "Email or password wrong") {
-          ScaffoldMessenger.of(context).clearSnackBars();
-          ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(e.message ?? "Login Failed")));
+        var message = 'An error occurred, please check your credentials!';
+        if (e.code == 'user-not-found') {
+          message = 'No user found for that email.';
+        } else if (e.code == 'wrong-password') {
+          message = 'Wrong password provided for that user.';
         }
+        _showErrorDialog(message);
       }
     }
   }
@@ -45,6 +50,24 @@ class _LogInScreenState extends State<LogInScreen> {
   void initState() {
     super.initState();
     _passwordVisible = false;
+  }
+
+  void _showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Login Failed'),
+        content: Text(message),
+        actions: <Widget>[
+          TextButton(
+            child: const Text('Okay'),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+            },
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -221,16 +244,17 @@ class _LogInScreenState extends State<LogInScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
-                      "Don't have account?",
+                      "Don't have account? ",
                     ),
                     InkWell(
                       onTap: () {
                         Navigator.pushNamed(context, SignUpScreen.routeName);
                       },
                       child: const Text(
-                        "create a new account",
+                        "Create a new account",
                         style: TextStyle(
                           color: Colors.green,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),

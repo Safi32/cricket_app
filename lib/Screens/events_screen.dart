@@ -74,16 +74,16 @@ class _EventsScreenState extends State<EventsScreen> {
                       ],
                     ),
                   ),
-                  Column(
+                  const Column(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(
+                        padding: EdgeInsets.symmetric(
                           vertical: 30,
                         ),
                         child: Row(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.symmetric(
+                              padding: EdgeInsets.symmetric(
                                 horizontal: 50,
                               ),
                               child: Text(

@@ -1,3 +1,5 @@
+import 'package:cricket_app/utils/colors.dart';
+import 'package:cricket_app/widgets/tickets.dart';
 import 'package:flutter/material.dart';
 
 class PageOneScreen extends StatelessWidget {
@@ -46,13 +48,13 @@ class PageOneScreen extends StatelessWidget {
                 Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                         horizontal: 20,
                         vertical: 20,
                       ),
                       child: Text(
                         clubName,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -62,10 +64,10 @@ class PageOneScreen extends StatelessWidget {
                   ],
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Text(
                     description,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.black,
                     ),
                   ),
@@ -77,19 +79,24 @@ class PageOneScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                         horizontal: 20,
                       ),
-                      child: Container(
-                        height: 40,
-                        width: 140,
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF68B787),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Center(
-                          child: Text(
-                            btnContainer,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(context, TicketsScreen.routeName);
+                        },
+                        child: Container(
+                          height: 40,
+                          width: 140,
+                          decoration: BoxDecoration(
+                            color: primaryColor,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Center(
+                            child: Text(
+                              btnContainer,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),

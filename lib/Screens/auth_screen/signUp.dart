@@ -1,10 +1,8 @@
-import 'dart:convert';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cricket_app/Screens/auth_screen/login.dart';
 import 'package:cricket_app/utils/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 final _firebase = FirebaseAuth.instance;
 
@@ -33,24 +31,19 @@ class _MyWidgetState extends State<SignUpScreen> {
             email: _enteredEmail, password: _enteredPassword);
         final String userId = UserCredential.user!.uid;
         print(UserCredential);
-        final _response = await http.post(
-          Uri.parse(
-              "https://cric-app-4cfce-default-rtdb.firebaseio.com/users.json"),
-          body: json.encode(
-            {
-              "UserId": userId,
-              "Username ": _enteredUsername,
-              "Email": _enteredEmail,
-              "Phone": _enteredPhone,
-              "Password": _enteredPassword,
-            },
-          ),
-        );
 
-        if (_response.statusCode == 200) {
-          Navigator.pushNamed(context, LogInScreen.routeName);
-        }
-        print(UserCredential);
+        await FirebaseFirestore.instance
+            .collection('acoounts')
+            .doc(userId)
+            .set({
+          'UserId': userId,
+          'username': _enteredUsername,
+          'email': _enteredEmail,
+          'phone': _enteredPhone,
+          'password': _enteredPassword,
+        });
+
+        Navigator.pushNamed(context, LogInScreen.routeName);
       } on FirebaseAuthException catch (e) {
         if (e.code == "Email or password wrong") {
           ScaffoldMessenger.of(context).clearSnackBars();
@@ -319,7 +312,7 @@ class _MyWidgetState extends State<SignUpScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text(
-                          "Already have account?",
+                          "Already have account? ",
                         ),
                         InkWell(
                           onTap: () {
@@ -329,6 +322,7 @@ class _MyWidgetState extends State<SignUpScreen> {
                             "Login",
                             style: TextStyle(
                               color: Color(0xFF68B787),
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
