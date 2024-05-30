@@ -1,4 +1,5 @@
 import 'package:cricket_app/utils/colors.dart';
+import 'package:cricket_app/widgets/tickets.dart';
 import 'package:flutter/material.dart';
 
 class UpcomingPrevious extends StatelessWidget {
@@ -83,10 +84,15 @@ class UpcomingPrevious extends StatelessWidget {
                     color: primaryColor,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: const Center(
-                    child: Text(
-                      "Buy Tickets",
-                      style: TextStyle(color: Colors.white, fontSize: 17),
+                  child: Center(
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, TicketsScreen.routeName);
+                      },
+                      child: Text(
+                        "Buy Tickets",
+                        style: TextStyle(color: Colors.white, fontSize: 17),
+                      ),
                     ),
                   ),
                 ),

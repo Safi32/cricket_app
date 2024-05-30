@@ -4,6 +4,7 @@ import 'package:cricket_app/Screens/blogs_screen.dart';
 import 'package:cricket_app/Screens/events_screen.dart';
 import 'package:cricket_app/Screens/home_screen.dart';
 import 'package:cricket_app/Screens/my_profile.dart';
+import 'package:cricket_app/Screens/splash_screen.dart';
 import 'package:cricket_app/Screens/teams_screen/teams_screen.dart';
 import 'package:cricket_app/widgets/shop.dart';
 import 'package:cricket_app/widgets/tickets.dart';
@@ -26,10 +27,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const LogInScreen(),
+      home: SplashScreen(),
       routes: {
-        HomeScreen.routeName: (context) => HomeScreen(),
-        LogInScreen.routeName: (context) => const LogInScreen(),
+        '/home': (context) => HomeScreen(),
+        '/login': (context) => LogInScreen(),
         SignUpScreen.routeName: (context) => const SignUpScreen(),
         TeamsScreen.routeName: (context) => const TeamsScreen(),
         EventsScreen.routeName: (context) => const EventsScreen(),

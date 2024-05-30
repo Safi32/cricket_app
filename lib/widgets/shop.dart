@@ -1,4 +1,5 @@
 import 'package:cricket_app/utils/colors.dart';
+import 'package:cricket_app/widgets/bottom_bar.dart';
 import 'package:cricket_app/widgets/kits.dart';
 import 'package:flutter/material.dart';
 
@@ -10,31 +11,7 @@ class ShopScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.access_alarm),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: '',
-          ),
-        ],
-      ),
+      bottomNavigationBar: const BottomBar(),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,21 +23,6 @@ class ShopScreen extends StatelessWidget {
                   fit: BoxFit.cover,
                   height: 250,
                   width: double.infinity,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 30,
-                    vertical: 40,
-                  ),
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Icon(
-                      Icons.arrow_back,
-                      color: Colors.white,
-                    ),
-                  ),
                 ),
                 Center(
                   child: Padding(

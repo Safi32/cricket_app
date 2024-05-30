@@ -1,5 +1,6 @@
 import 'package:cricket_app/Screens/home_screen.dart';
 import 'package:cricket_app/utils/colors.dart';
+import 'package:cricket_app/widgets/bottom_bar.dart';
 import 'package:cricket_app/widgets/slider.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +11,7 @@ class BlogsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: const BottomBar(),
       body: Column(
         children: [
           Stack(
@@ -116,87 +118,82 @@ class BlogsScreen extends StatelessWidget {
               ],
             ),
           ),
-          Expanded(
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Color(0xFF242424),
-              ),
-              child: Center(
-                child: Column(
-                  children: [
-                    const Row(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                            vertical: 10,
-                            horizontal: 20,
+          Container(
+            height: 60,
+            width: double.infinity,
+            color: const Color(0xFF242424),
+            child: Center(
+              child: Column(
+                children: [
+                  const Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: 5,
+                          horizontal: 20,
+                        ),
+                        child: Text(
+                          'Follow us on',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
                           ),
-                          child: Text(
-                            'Follow us on',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 15,
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          height: 25,
+                          child: const Image(
+                            image: AssetImage(
+                              "assets/camera.png",
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Container(
+                          height: 25,
+                          child: const Image(
+                            image: AssetImage(
+                              "assets/Facebook.png",
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Container(
+                          height: 25,
+                          child: const Image(
+                            image: AssetImage(
+                              "assets/YouTube.png",
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Container(
+                          height: 25,
+                          child: const Image(
+                            image: AssetImage(
+                              "assets/LinkedIn.png",
                             ),
                           ),
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 15,
-                      ),
-                      child: Row(
-                        children: [
-                          Container(
-                            height: 25,
-                            child: const Image(
-                              image: AssetImage(
-                                "assets/camera.png",
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Container(
-                            height: 25,
-                            child: const Image(
-                              image: AssetImage(
-                                "assets/Facebook.png",
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Container(
-                            height: 25,
-                            child: const Image(
-                              image: AssetImage(
-                                "assets/YouTube.png",
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Container(
-                            height: 25,
-                            child: const Image(
-                              image: AssetImage(
-                                "assets/LinkedIn.png",
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
