@@ -23,7 +23,7 @@ class BlogsScreen extends StatelessWidget {
                 top: 30,
                 left: 30,
                 child: IconButton(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.arrow_back,
                     color: Colors.white,
                   ),
@@ -132,7 +132,7 @@ class BlogsScreen extends StatelessWidget {
                             horizontal: 20,
                           ),
                           child: Text(
-                            'Defenders Cricket Club',
+                            'Follow us on',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 15,
@@ -141,18 +141,6 @@ class BlogsScreen extends StatelessWidget {
                           ),
                         ),
                       ],
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 20,
-                      ),
-                      child: Text(
-                        "There are many different sports clubs available, so it is important to do some reasearch to find that is a good fit for you.Consider your interests, skill level.",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
-                        ),
-                      ),
                     ),
                     const SizedBox(
                       height: 5,
@@ -171,6 +159,9 @@ class BlogsScreen extends StatelessWidget {
                               ),
                             ),
                           ),
+                          SizedBox(
+                            width: 10,
+                          ),
                           Container(
                             height: 25,
                             child: const Image(
@@ -179,6 +170,9 @@ class BlogsScreen extends StatelessWidget {
                               ),
                             ),
                           ),
+                          SizedBox(
+                            width: 10,
+                          ),
                           Container(
                             height: 25,
                             child: const Image(
@@ -186,6 +180,9 @@ class BlogsScreen extends StatelessWidget {
                                 "assets/YouTube.png",
                               ),
                             ),
+                          ),
+                          SizedBox(
+                            width: 10,
                           ),
                           Container(
                             height: 25,

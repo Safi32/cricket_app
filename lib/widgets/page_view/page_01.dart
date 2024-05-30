@@ -1,5 +1,6 @@
+import 'package:cricket_app/Screens/events_screen.dart';
 import 'package:cricket_app/utils/colors.dart';
-import 'package:cricket_app/widgets/tickets.dart';
+import 'package:cricket_app/widgets/shop.dart';
 import 'package:flutter/material.dart';
 
 class PageOneScreen extends StatelessWidget {
@@ -11,13 +12,15 @@ class PageOneScreen extends StatelessWidget {
       required this.clubName,
       required this.description,
       required this.btnContainer,
-      required this.image2});
+      required this.image2,
+      required this.btnContainerr});
 
   final String image;
   final String kitImage;
   final String clubName;
   final String description;
   final String btnContainer;
+  final String btnContainerr;
   final String image2;
 
   @override
@@ -77,15 +80,15 @@ class PageOneScreen extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
+                        horizontal: 10,
                       ),
                       child: InkWell(
                         onTap: () {
-                          Navigator.pushNamed(context, TicketsScreen.routeName);
+                          Navigator.pushNamed(context, EventsScreen.routeName);
                         },
                         child: Container(
                           height: 40,
-                          width: 140,
+                          width: 120,
                           decoration: BoxDecoration(
                             color: primaryColor,
                             borderRadius: BorderRadius.circular(10),
@@ -96,7 +99,34 @@ class PageOneScreen extends StatelessWidget {
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
+                                fontSize: 15,
                               ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, ShopScreen.routeName);
+                      },
+                      child: Container(
+                        height: 40,
+                        width: 120,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(
+                            color: primaryColor,
+                          ),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Center(
+                          child: Text(
+                            btnContainerr,
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
                             ),
                           ),
                         ),
