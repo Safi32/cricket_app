@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cricket_app/Screens/auth_screen/login.dart';
-import 'package:cricket_app/widgets/bottom_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,6 +8,9 @@ final _firebase = FirebaseAuth.instance;
 
 class UserProfile extends StatefulWidget {
   static const routeName = "userProfile";
+
+  final user;
+  UserProfile(this.user);
 
   @override
   State<UserProfile> createState() => _UserProfileState();
@@ -21,6 +23,7 @@ class _UserProfileState extends State<UserProfile> {
   @override
   void initState() {
     _getUserData();
+    user = widget.user;
     super.initState();
   }
 
@@ -44,7 +47,6 @@ class _UserProfileState extends State<UserProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: const BottomBar(),
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: const Color(0xFF68B787),
@@ -101,12 +103,10 @@ class _UserProfileState extends State<UserProfile> {
                 padding: const EdgeInsets.all(20),
                 child: Column(
                   children: [
-                    const SizedBox(height: 20),
-                    Positioned(
-                      child: CircleAvatar(
-                        radius: 50,
-                        backgroundColor: Colors.black,
-                      ),
+                    SizedBox(height: 20),
+                    CircleAvatar(
+                      radius: 50,
+                      backgroundColor: Colors.black,
                     ),
                   ],
                 ),
@@ -120,6 +120,7 @@ class _UserProfileState extends State<UserProfile> {
                   color: Colors.grey.shade100,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
                   )),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -135,15 +136,15 @@ class _UserProfileState extends State<UserProfile> {
                   ListTile(
                     leading: const Icon(Icons.person),
                     title:
-                        Text('Name: ${user != null ? user!["username"] : ""}'),
+                        Text('Name: ${user != null ? user["username"] : ""}'),
                   ),
                   ListTile(
                     leading: const Icon(Icons.email),
-                    title: Text('Email: ${user != null ? user!["email"] : ""}'),
+                    title: Text('Email: ${user != null ? user["email"] : ""}'),
                   ),
                   ListTile(
                     leading: const Icon(Icons.phone),
-                    title: Text('Phone: ${user != null ? user!["phone"] : ""}'),
+                    title: Text('Phone: ${user != null ? user["phone"] : ""}'),
                   )
                 ],
               ),

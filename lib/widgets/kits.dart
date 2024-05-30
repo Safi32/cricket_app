@@ -20,14 +20,20 @@ class KitScreen extends StatelessWidget {
         color: Colors.white,
       ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image(
-            image: AssetImage(
-              image,
+          SizedBox(
+            height: 100,
+            width: double.infinity,
+            child: Image(
+              image: AssetImage(
+                image,
+              ),
+              fit: BoxFit.contain,
             ),
           ),
           const SizedBox(
-            height: 40,
+            height: 10,
           ),
           Text(
             title,

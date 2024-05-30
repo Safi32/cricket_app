@@ -1,6 +1,5 @@
 import 'package:cricket_app/Screens/home_screen.dart';
 import 'package:cricket_app/utils/colors.dart';
-import 'package:cricket_app/widgets/bottom_bar.dart';
 import 'package:cricket_app/widgets/slider.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +10,6 @@ class BlogsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: const BottomBar(),
       body: Column(
         children: [
           Stack(

@@ -1,5 +1,4 @@
 import 'package:cricket_app/utils/colors.dart';
-import 'package:cricket_app/widgets/bottom_bar.dart';
 import 'package:cricket_app/widgets/upcoming/previous_event.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +14,6 @@ class _EventsScreenState extends State<EventsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: const BottomBar(),
       backgroundColor: Colors.grey.shade300,
       body: Column(
         children: [

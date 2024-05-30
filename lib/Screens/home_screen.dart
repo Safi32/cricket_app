@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cricket_app/Screens/auth_screen/login.dart';
 import 'package:cricket_app/Screens/my_profile.dart';
 import 'package:cricket_app/utils/colors.dart';
-import 'package:cricket_app/widgets/bottom_bar.dart';
 import 'package:cricket_app/widgets/page_view/page_01.dart';
 import 'package:cricket_app/widgets/tickets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -48,7 +47,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: const BottomBar(),
       backgroundColor: backgroundColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),

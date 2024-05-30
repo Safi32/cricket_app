@@ -8,6 +8,7 @@ import 'package:cricket_app/Screens/splash_screen.dart';
 import 'package:cricket_app/Screens/teams_screen/teams_screen.dart';
 import 'package:cricket_app/widgets/shop.dart';
 import 'package:cricket_app/widgets/tickets.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -30,13 +31,13 @@ class MyApp extends StatelessWidget {
       home: SplashScreen(),
       routes: {
         '/home': (context) => HomeScreen(),
-        '/login': (context) => LogInScreen(),
+        '/login': (context) => const LogInScreen(),
         SignUpScreen.routeName: (context) => const SignUpScreen(),
         TeamsScreen.routeName: (context) => const TeamsScreen(),
         EventsScreen.routeName: (context) => const EventsScreen(),
         BlogsScreen.routeName: (context) => const BlogsScreen(),
         TicketsScreen.routeName: (context) => const TicketsScreen(),
-        UserProfile.routeName: (context) => UserProfile(),
+        UserProfile.routeName: (context) => UserProfile(User),
         ShopScreen.routeName: (context) => const ShopScreen(),
       },
     );

@@ -1,6 +1,6 @@
 import 'package:cricket_app/Screens/auth_screen/signUp.dart';
-import 'package:cricket_app/Screens/home_screen.dart';
 import 'package:cricket_app/utils/colors.dart';
+import 'package:cricket_app/widgets/bottom_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -33,7 +33,11 @@ class _LogInScreenState extends State<LogInScreen> {
                 email: _enteredEmail, password: _enteredPassword);
         prefs.setString('id', userCredential.user!.uid);
 
-        Navigator.pushNamed(context, HomeScreen.routeName);
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => BottomBar(),
+            ));
       } on FirebaseAuthException catch (e) {
         var message = 'An error occurred, please check your credentials!';
         if (e.code == 'user-not-found') {

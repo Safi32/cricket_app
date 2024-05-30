@@ -1,5 +1,4 @@
 import 'package:cricket_app/utils/colors.dart';
-import 'package:cricket_app/widgets/bottom_bar.dart';
 import 'package:cricket_app/widgets/kits.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +10,6 @@ class ShopScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
-      bottomNavigationBar: const BottomBar(),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -152,7 +150,7 @@ class ShopScreen extends StatelessWidget {
                 child: Row(
                   children: [
                     KitScreen(
-                      image: "assets/black-gloves.png",
+                      image: "assets/kit1.png",
                       title: "H-Sleeves Shirt",
                       price: "20\$",
                     ),
@@ -160,7 +158,7 @@ class ShopScreen extends StatelessWidget {
                       width: 10,
                     ),
                     KitScreen(
-                      image: "assets/black-gloves.png",
+                      image: "assets/kit2.png",
                       title: "H-Sleeves Shirt",
                       price: "20\$",
                     ),
@@ -168,7 +166,7 @@ class ShopScreen extends StatelessWidget {
                       width: 10,
                     ),
                     KitScreen(
-                      image: "assets/black-gloves.png",
+                      image: "assets/kit3.png",
                       title: "H-Sleeves Shirt",
                       price: "20\$",
                     ),
@@ -176,7 +174,7 @@ class ShopScreen extends StatelessWidget {
                       width: 10,
                     ),
                     KitScreen(
-                      image: "assets/black-gloves.png",
+                      image: "assets/kit4.png",
                       title: "H-Sleeves Shirt",
                       price: "20\$",
                     ),
@@ -184,7 +182,7 @@ class ShopScreen extends StatelessWidget {
                       width: 10,
                     ),
                     KitScreen(
-                      image: "assets/black-gloves.png",
+                      image: "assets/kit5.png",
                       title: "H-Sleeves Shirt",
                       price: "20\$",
                     ),
@@ -192,7 +190,7 @@ class ShopScreen extends StatelessWidget {
                       width: 10,
                     ),
                     KitScreen(
-                      image: "assets/black-gloves.png",
+                      image: "assets/kit6.png",
                       title: "H-Sleeves Shirt",
                       price: "20\$",
                     ),
