@@ -1,10 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cricket_app/Screens/auth_screen/login.dart';
-import 'package:cricket_app/Screens/my_profile.dart';
-import 'package:cricket_app/utils/colors.dart';
 import 'package:cricket_app/widgets/drawer.dart';
-import 'package:cricket_app/widgets/page_view/page_01.dart';
-import 'package:cricket_app/widgets/shop.dart';
 import 'package:cricket_app/widgets/tickets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -12,23 +8,25 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 final _firebase = FirebaseAuth.instance;
 
-class HomeScreen extends StatefulWidget {
-  static const routeName = '/home';
+class UserProfile extends StatefulWidget {
+  static const routeName = "userProfile";
+  UserProfile({super.key});
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  State<UserProfile> createState() => _UserProfileState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  List _users = [];
+class _UserProfileState extends State<UserProfile> {
   var user = null;
+  List _users = [];
+
   @override
   void initState() {
-    _getAllUsers();
+    _getUserData();
     super.initState();
   }
 
-  void _getAllUsers() async {
+  void _getUserData() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final id = await prefs.getString('id');
     QuerySnapshot querySnapshot =
@@ -37,19 +35,17 @@ class _HomeScreenState extends State<HomeScreen> {
     _users = querySnapshot.docs.map((doc) {
       return doc.data() as Map<String, dynamic>;
     }).toList();
+    print(_users);
 
     user = _users.firstWhere((element) {
       return element["UserId"] == id;
     });
-    print(user);
-
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: AppBar(
@@ -80,11 +76,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               onSelected: (String value) async {
                 if (value == 'My Profile') {
-                  Navigator.pushNamed(context, UserProfile.routeName);
+                  // Handle My Profile action
                 } else if (value == 'Tickets') {
                   Navigator.pushNamed(context, TicketsScreen.routeName);
-                } else if (value == "Shop") {
-                  Navigator.pushNamed(context, ShopScreen.routeName);
                 } else if (value == 'Logout') {
                   try {
                     await _firebase.signOut();
@@ -114,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   value: 'Shop',
                   child: ListTile(
                     leading: Icon(Icons.card_travel, color: Colors.black),
-                    title: InkWell(child: Text('Shop')),
+                    title: Text('Shop'),
                   ),
                 ),
                 const PopupMenuItem<String>(
@@ -130,17 +124,35 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       drawer: const DrawerScreen(),
-      body: PageView(
-        scrollDirection: Axis.vertical,
-        children: const [
-          PageOneScreen(
-            image: "assets/Header-Ellipse.png",
-            kitImage: "assets/shirt.png",
-            clubName: "Defenders Cricket Club",
-            description:
-                "A sports club is an organization of people interested in a particular sport or physical activity. clubs maybe dedicated to a single sport or to several multi multi-sport clubs.",
-            btnContainer: "Buy Tickets",
-            image2: "assets/Header-Ellipse-2.png",
+      body: Column(
+        children: [
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height / 4.9,
+          ),
+          Stack(
+            alignment: Alignment.topCenter,
+            clipBehavior: Clip.none,
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 1.5,
+                decoration: const BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  ),
+                ),
+              ),
+              const Positioned(
+                top: -50,
+                child: CircleAvatar(
+                  radius: 50,
+                  backgroundColor: Colors.black,
+                ),
+              ),
+            ],
           ),
         ],
       ),

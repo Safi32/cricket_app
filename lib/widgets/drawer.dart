@@ -1,5 +1,6 @@
 import 'package:cricket_app/Screens/blogs_screen.dart';
 import 'package:cricket_app/Screens/events_screen.dart';
+import 'package:cricket_app/Screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class DrawerScreen extends StatelessWidget {
@@ -13,10 +14,15 @@ class DrawerScreen extends StatelessWidget {
           ListTile(
             title: InkWell(
               child: Container(
-                child: Text(
-                  "Home",
-                  style: TextStyle(
-                    color: Colors.black,
+                child: InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, HomeScreen.routeName);
+                  },
+                  child: Text(
+                    "Home",
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
                   ),
                 ),
               ),

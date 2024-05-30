@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cricket_app/Screens/auth_screen/login.dart';
 import 'package:cricket_app/utils/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 final _firebase = FirebaseAuth.instance;
 
@@ -20,10 +24,17 @@ class _MyWidgetState extends State<SignUpScreen> {
   var _enteredPassword = '';
   var _enteredPhone = '';
   var _enteredUsername = '';
+  String imageUrl = '';
 
   void _submit() async {
     final isValid = _formKey.currentState!.validate();
-
+    if (imageUrl.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Please Upload an image"),
+        ),
+      );
+    }
     if (isValid) {
       _formKey.currentState!.save();
       try {
@@ -41,6 +52,7 @@ class _MyWidgetState extends State<SignUpScreen> {
           'email': _enteredEmail,
           'phone': _enteredPhone,
           'password': _enteredPassword,
+          'photoUrl': imageUrl,
         });
 
         Navigator.pushNamed(context, LogInScreen.routeName);
@@ -85,41 +97,87 @@ class _MyWidgetState extends State<SignUpScreen> {
                     const SizedBox(
                       height: 15,
                     ),
-                    SizedBox(
-                      width: 370,
-                      child: TextFormField(
-                        validator: (value) {
-                          if (value!.trim().isEmpty ||
-                              value.trim().length < 4) {
-                            return "Username must contains more than 4 characters";
-                          }
-                          return null;
-                        },
-                        onSaved: (value) {
-                          _enteredUsername = value!;
-                        },
-                        decoration: const InputDecoration(
-                          prefixIcon: ImageIcon(
-                            AssetImage(
-                              "assets/User.png",
-                            ),
-                            color: primaryColor,
+                    Stack(
+                      children: [
+                        const CircleAvatar(
+                          radius: 60,
+                          backgroundImage:
+                              AssetImage("assets/Account circle.png"),
+                        ),
+                        Positioned(
+                          bottom: -10,
+                          left: 80,
+                          child: IconButton(
+                            onPressed: () async {
+                              final imagePicker = ImagePicker();
+                              XFile? file = await imagePicker.pickImage(
+                                  source: ImageSource.camera);
+                              print('${file?.path}');
+                              if (file == null) return;
+                              String uniqueFileName = DateTime.now()
+                                  .millisecondsSinceEpoch
+                                  .toString();
+                              Reference referenceRoot =
+                                  FirebaseStorage.instance.ref();
+                              Reference referenceDirImages =
+                                  referenceRoot.child('images');
+                              Reference referenceImageToUpload =
+                                  referenceDirImages.child(uniqueFileName);
+                              try {
+                                await referenceImageToUpload
+                                    .putFile(File(file.path));
+                                imageUrl = await referenceImageToUpload
+                                    .getDownloadURL();
+                              } catch (e) {}
+                            },
+                            icon: const Icon(Icons.camera_alt),
                           ),
-                          prefixIconColor: Colors.grey,
-                          labelText: "Username",
-                          floatingLabelStyle: TextStyle(color: primaryColor),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: primaryColor,
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: primaryColor,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Column(
+                      children: [
+                        SizedBox(
+                          width: 370,
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value!.trim().isEmpty ||
+                                  value.trim().length < 4) {
+                                return "Username must contains more than 4 characters";
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              _enteredUsername = value!;
+                            },
+                            decoration: const InputDecoration(
+                              prefixIcon: ImageIcon(
+                                AssetImage(
+                                  "assets/User.png",
+                                ),
+                                color: primaryColor,
+                              ),
+                              prefixIconColor: Colors.grey,
+                              labelText: "Username",
+                              floatingLabelStyle:
+                                  TextStyle(color: primaryColor),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: primaryColor,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: primaryColor,
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
                     const SizedBox(
                       height: 15,
