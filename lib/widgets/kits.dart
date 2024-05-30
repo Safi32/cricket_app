@@ -17,7 +17,7 @@ class KitScreen extends StatelessWidget {
       height: 150,
       width: 150,
       decoration: const BoxDecoration(
-        color: Colors.grey,
+        color: Colors.white,
       ),
       child: Column(
         children: [

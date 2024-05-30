@@ -1,5 +1,5 @@
 import 'package:cricket_app/utils/colors.dart';
-import 'package:cricket_app/widgets/matches.dart';
+import 'package:cricket_app/widgets/upcoming/previous_event.dart';
 import 'package:flutter/material.dart';
 
 class EventsScreen extends StatefulWidget {
@@ -14,112 +14,172 @@ class _EventsScreenState extends State<EventsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey.shade300,
       body: Column(
         children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height / 3.5,
-            child: const Image(
-              image: AssetImage(
-                "assets/team.png",
-              ),
-            ),
-          ),
-          Expanded(
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              decoration: const BoxDecoration(
-                color: Color(0xFFF4F6F7),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(50),
-                  topRight: Radius.circular(50),
+          Stack(
+            children: [
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 3.5,
+                child: const Image(
+                  image: AssetImage(
+                    "assets/team.png",
+                  ),
                 ),
               ),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 20,
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 40,
+                  vertical: 40,
+                ),
+                child: InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Icon(
+                    Icons.arrow_back,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: 170,
+                  left: 30,
+                ),
+                child: Center(
+                  child: Container(
+                    height: 150,
+                    width: 300,
+                    decoration: BoxDecoration(
+                      color: primaryColor,
+                      borderRadius: BorderRadius.circular(20),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                    child: Column(
                       children: [
-                        Container(
-                          height: 30,
-                          width: 90,
-                          decoration: BoxDecoration(
-                            color: primaryColor,
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: const Center(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Icon(
-                                  Icons.search,
-                                  color: Colors.white,
-                                ),
-                                Text(
-                                  "Search",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 15,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              const Column(
+                                children: [
+                                  Text(
+                                    "Best Performance in\nlast month",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontStyle: FontStyle.italic,
+                                      fontSize: 16,
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        " Saim Ayub's no-look\n shot has gained global \n fame recently",
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Stack(
+                                clipBehavior: Clip.none,
+                                children: [
+                                  Container(
+                                    width: 120,
+                                    height: 120,
+                                    child: Image.asset(
+                                      "assets/nolook.png",
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                         ),
                       ],
                     ),
                   ),
-                  const Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 30,
-                        ),
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 50,
-                              ),
-                              child: Text(
-                                "Up Coming Events",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                ),
+              )
+            ],
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          const Column(
+            children: [
+              Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 10,
+                    ),
+                    child: Text(
+                      "Up Coming Events",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          MatchesScreen(
-                            image: "assets/shirt.png",
-                            dateTime: "9 April 2024, 8:00 AM",
-                            clubName: "Defenders Cricket Club",
-                            teams: "Gunners vs Stars",
-                          ),
-                          MatchesScreen(
-                            image: "assets/shirt.png",
-                            dateTime: "9 April 2024, 8:00 AM",
-                            clubName: "Defenders Cricket Club",
-                            teams: "Gunners vs Stars",
-                          ),
-                        ],
-                      )
-                    ],
+                    ),
                   ),
                 ],
               ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20,
+                ),
+                child: Row(
+                  children: [
+                    UpcomingPrevious(),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    UpcomingPrevious(),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20,
+            ),
+            child: Row(
+              children: [
+                Text(
+                  "Passed Events",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
           ),
+          SizedBox(
+            height: 10,
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 20,
+            ),
+            child: Row(
+              children: [
+                UpcomingPrevious(),
+                SizedBox(
+                  width: 10,
+                ),
+                UpcomingPrevious(),
+              ],
+            ),
+          )
         ],
       ),
     );

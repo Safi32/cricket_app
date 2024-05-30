@@ -4,7 +4,6 @@ import 'package:cricket_app/Screens/my_profile.dart';
 import 'package:cricket_app/utils/colors.dart';
 import 'package:cricket_app/widgets/drawer.dart';
 import 'package:cricket_app/widgets/page_view/page_01.dart';
-import 'package:cricket_app/widgets/shop.dart';
 import 'package:cricket_app/widgets/tickets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -83,8 +82,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.pushNamed(context, UserProfile.routeName);
                 } else if (value == 'Tickets') {
                   Navigator.pushNamed(context, TicketsScreen.routeName);
-                } else if (value == "Shop") {
-                  Navigator.pushNamed(context, ShopScreen.routeName);
                 } else if (value == 'Logout') {
                   try {
                     await _firebase.signOut();
@@ -111,13 +108,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 const PopupMenuItem<String>(
-                  value: 'Shop',
-                  child: ListTile(
-                    leading: Icon(Icons.card_travel, color: Colors.black),
-                    title: InkWell(child: Text('Shop')),
-                  ),
-                ),
-                const PopupMenuItem<String>(
                   value: 'Logout',
                   child: ListTile(
                     leading: Icon(Icons.logout, color: Colors.black),
@@ -130,19 +120,15 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       drawer: const DrawerScreen(),
-      body: PageView(
-        scrollDirection: Axis.vertical,
-        children: const [
-          PageOneScreen(
-            image: "assets/Header-Ellipse.png",
-            kitImage: "assets/shirt.png",
-            clubName: "Defenders Cricket Club",
-            description:
-                "A sports club is an organization of people interested in a particular sport or physical activity. clubs maybe dedicated to a single sport or to several multi multi-sport clubs.",
-            btnContainer: "Buy Tickets",
-            image2: "assets/Header-Ellipse-2.png",
-          ),
-        ],
+      body: const PageOneScreen(
+        image: "assets/Header-Ellipse.png",
+        kitImage: "assets/shirt.png",
+        clubName: "Defenders Cricket Club",
+        description:
+            "A sports club is an organization of people interested in a particular sport or physical activity. clubs maybe dedicated to a single sport or to several multi multi-sport clubs.",
+        btnContainer: "Events",
+        btnContainerr: "Shop now",
+        image2: "assets/Header-Ellipse-2.png",
       ),
     );
   }
